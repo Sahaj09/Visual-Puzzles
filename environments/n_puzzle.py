@@ -5,6 +5,7 @@ from PIL import Image, ImageTk, ImageFilter
 import tkinter as tk
 from typing import Optional
 
+
 class n_PuzzleEnv(gym.Env):
     metadata = {"render_modes": ["ascii", "human"]}
 
@@ -122,7 +123,7 @@ class n_PuzzleEnv(gym.Env):
 
         self.render_mode = render_mode
         self.time_steps_limit = time_steps_limit if time_steps_limit else np.inf
-        
+
         # Forced to reset the environment
         self.terminated = True
         self.truncated = True
@@ -179,7 +180,7 @@ class n_PuzzleEnv(gym.Env):
             self._render_frame()
         elif self.render_mode == "ascii":
             self._render_ascii()
-        
+
         self.terminated = False
         self.truncated = False
         return observation, info
@@ -188,7 +189,7 @@ class n_PuzzleEnv(gym.Env):
         if self.terminated or self.truncated:
             # print("Invalid action. Environment has been terminated.")
             return self._get_obs(), 0, self.terminated, self.truncated, self._get_info()
-        
+
         self.current_time_step += 1
         # Define movement directions
         directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]  # up, right, down, left
@@ -205,10 +206,10 @@ class n_PuzzleEnv(gym.Env):
             self.empty_pos = new_pos
 
         self.terminated = self._is_solved()
-        
+
         if self.current_time_step >= self.time_steps_limit:
             self.truncated = True
-        
+
         reward = -1  # Small negative reward for each move
         observation = self._get_obs()
         info = self._get_info()

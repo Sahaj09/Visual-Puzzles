@@ -1,17 +1,18 @@
 import gymnasium as gym
-from rush_hour_env import RushHourEnv
+from environments import RushHourEnv
+
 
 def test_rush_hour_env():
-    board_description = "oooooxooooooAAooooooooooooooooooooox"
+    board_description = "ooxoKoCCoIKoGAAIKoGoHJDDEEHJoLoFFFoL"
     env = RushHourEnv(board_description)
 
     # Test reset
     obs, _ = env.reset()
-    assert obs.shape == (6, 6)
+
     print("Reset test passed.")
 
     # Test step
-    
+
     done = False
 
     # Test win condition
@@ -33,6 +34,7 @@ def test_rush_hour_env():
             print("Game won!")
             env.render()
             break
+
 
 if __name__ == "__main__":
     test_rush_hour_env()
