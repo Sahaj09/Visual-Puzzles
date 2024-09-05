@@ -21,7 +21,7 @@ def play_game(image_path):
     env = n_PuzzleEnv(image_path=image_path, render_mode="human")
     observation, info = env.reset()
 
-    print("Welcome to the 15-Puzzle game!")
+    print("Welcome to the n-Puzzle game!")
     print("Try to arrange the image pieces in the correct order.")
 
     total_reward = 0

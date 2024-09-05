@@ -4,7 +4,6 @@ from gymnasium import spaces
 from PIL import Image, ImageDraw
 from matplotlib import pyplot as plt
 
-
 class RushHourEnv(gym.Env):
     def __init__(self, board_description, obs_type="rgb"):
         super(RushHourEnv, self).__init__()
