@@ -1,7 +1,7 @@
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
-from PIL import Image, ImageTk, ImageFilter
+from PIL import Image, ImageTk, ImageFilter, ImageDraw
 import tkinter as tk
 from typing import Optional
 
@@ -148,6 +148,7 @@ class n_PuzzleEnv(gym.Env):
     def _get_obs(self):
         # Create the observation by assembling the image tiles
         obs = Image.new("RGB", (self.image_size, self.image_size))
+        draw = ImageDraw.Draw(obs)
         for i in range(self.size):
             for j in range(self.size):
                 tile_index = self.board[i, j]
@@ -156,6 +157,9 @@ class n_PuzzleEnv(gym.Env):
                 else:
                     tile = self.tiles[tile_index - 1]
                 obs.paste(tile, (j * self.tile_size, i * self.tile_size))
+                x = j * self.tile_size
+                y = i * self.tile_size
+                draw.rectangle([x, y, x + self.tile_size, y + self.tile_size], outline="black", width=1)
         return np.array(obs)
 
     def _get_info(self):
