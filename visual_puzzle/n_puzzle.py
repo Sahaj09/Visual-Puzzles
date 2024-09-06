@@ -155,7 +155,7 @@ class n_PuzzleEnv(gym.Env):
                 if tile_index == 0:
                     tile = self.blank_tile
                 else:
-                    tile = self.tiles[tile_index - 1]
+                    tile = self.tiles[tile_index] 
                 obs.paste(tile, (j * self.tile_size, i * self.tile_size))
                 x = j * self.tile_size
                 y = i * self.tile_size
