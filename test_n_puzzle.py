@@ -1,5 +1,5 @@
 import gymnasium as gym
-from environments import n_PuzzleEnv
+import environments
 from PIL import Image
 
 
@@ -18,7 +18,8 @@ def action_to_index(action):
 
 
 def play_game(image_path):
-    env = n_PuzzleEnv(image_path=image_path, render_mode="human")
+    env = gym.make("n_Puzzle-v0", image_path=image_path, render_mode="human")
+    # env = n_PuzzleEnv(image_path=image_path, render_mode="human")
     observation, info = env.reset()
 
     print("Welcome to the n-Puzzle game!")

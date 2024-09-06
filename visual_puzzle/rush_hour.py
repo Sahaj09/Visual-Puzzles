@@ -3,15 +3,78 @@ import numpy as np
 from gymnasium import spaces
 from PIL import Image, ImageDraw
 from matplotlib import pyplot as plt
+from typing import Optional
+
 
 class RushHourEnv(gym.Env):
-    def __init__(self, board_description, obs_type="rgb"):
+    def __init__(
+        self,
+        board_description: Optional[str] = None,
+        obs_type: str = "rgb",
+        rush_txt_path: str = "experiment_data/rush.txt",
+    ):
+        """
+        Initialize the Rush Hour environment.
+
+        This environment simulates the Rush Hour puzzle game, where the goal is to
+        move vehicles to allow the main car (usually represented by 'A') to exit.
+
+        Parameters:
+        -----------
+        board_description : str, Optional
+            A string representation of the initial board state. The string should
+            contain 36 characters representing a 6x6 grid. Use 'o' for empty spaces,
+            'x' for walls, 'A' for the main car, and other letters for other vehicles.
+            Eg.- ooIBBBGoIJCCGAAJKLoHDDKLxHFFKMoooooM
+            If None, a random board will be loaded from rush.txt (which should be located at rush_txt_path) file.
+
+        obs_type : str
+            The type of observation to return. Must be either 'rgb' or 'text'.
+            Default is 'rgb'.
+
+        rush_txt_path : str
+            The path to the rush.txt file containing the board descriptions.
+
+        Attributes:
+        -----------
+        board : numpy.ndarray
+            A 6x6 numpy array representing the current board state.
+        pieces : list
+            A sorted list of unique vehicle identifiers on the board.
+        piece_orientations : dict
+            A dictionary mapping each piece to its orientation ('h' for horizontal, 'v' for vertical).
+        action_space : gym.spaces.MultiDiscrete
+            The action space, representing which piece to move and in which direction.
+        observation_space : gym.spaces.Box
+            The observation space, representing the 6x6 game board.
+        colors : dict
+            A dictionary mapping piece identifiers to RGB color tuples.
+
+        Raises:
+        -------
+        AssertionError
+            If the obs_type is not 'rgb' or 'text'.
+
+        Notes:
+        ------
+        - The action space is defined as follows:
+          - First value: index of the piece to move (in self.pieces)
+          - Second value: direction to move (0: up, 1: right, 2: down, 3: left)
+        - Colors are predefined for empty spaces ('o'), walls ('x'), and the main car ('A').
+          Other pieces are assigned random RGB colors.
+        """
         super(RushHourEnv, self).__init__()
 
         assert obs_type in ["rgb", "text"], "Observation type must be 'rgb' or 'text'"
+        if board_description is not None:
+            self.board_description = board_description
+            self.num_steps_to_finish = None
+        else:
+            self.num_steps_to_finish, self.board_description = self.load_board_randomly(
+                rush_txt_path
+            )
 
-        self.board_description = board_description
-        self.board = np.array(list(board_description)).reshape(6, 6)
+        self.board = np.array(list(self.board_description)).reshape(6, 6)
         self.pieces = set(self.board.flatten()) - set("ox")
         self.pieces = sorted(list(self.pieces))
         self.piece_orientations = self._get_piece_orientations()
@@ -37,6 +100,14 @@ class RushHourEnv(gym.Env):
             if piece not in self.colors:
                 self.colors[piece] = tuple(np.random.randint(0, 256, 3))
 
+    # Load a board from rush.txt file were each sentence is shortest_path, board, id
+    def load_board_randomly(self, file_path: str):
+        with open("experiment_data/rush.txt", "r") as f:
+            lines = f.readlines()
+            random_board = lines[np.random.randint(0, len(lines))].split(" ")
+            print(random_board)
+            return int(random_board[0]), random_board[1]
+
     def _get_piece_orientations(self):
         orientations = {}
         for piece in self.pieces:
@@ -50,15 +121,21 @@ class RushHourEnv(gym.Env):
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
         self.board = np.array(list(self.board_description)).reshape(6, 6)
-        return self._get_obs(), {}
+        return self._get_obs(), {"num_steps_to_finish": self.num_steps_to_finish}
 
     def step(self, action):
         piece = list(self.pieces)[action[0]]
         direction = action[1]
         moved = self._move_piece(piece, direction)
         done = self._check_win()
-        reward = 1 if done else 0
-        return self._get_obs(), reward, done, False, {}
+        reward = 0 if done else -1
+        return (
+            self._get_obs(),
+            reward,
+            done,
+            False,
+            {"num_steps_to_finish": self.num_steps_to_finish},
+        )
 
     def _get_obs(self):
         if self.obs_type == "rgb":

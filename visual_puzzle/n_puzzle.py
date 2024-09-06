@@ -13,8 +13,8 @@ class n_PuzzleEnv(gym.Env):
         self,
         image_path: str,
         render_mode: Optional[str] = None,
-        n_puzzle: Optional[int] = 15,
-        image_size: Optional[int] = 240,
+        n_puzzle: int = 15,
+        image_size: int = 240,
         filter_effects: Optional[str] = None,
         time_steps_limit: Optional[int] = None,
     ):
@@ -29,9 +29,9 @@ class n_PuzzleEnv(gym.Env):
             render_mode (str, optional): Specifies how to render the environment.
                 Supported modes: "human" for rendering to a window using tkinter. "ascii" for text-based rendering.
                 Defaults to None.
-            n_puzzle (int, optional): Number of tiles in the puzzle (e.g., 15 for 15-Puzzle).
+            n_puzzle (int): Number of tiles in the puzzle (e.g., 15 for 15-Puzzle).
                 Defaults to 15.
-            image_size (int, optional): Size of the resized image in pixels.
+            image_size (int): Size of the resized image in pixels.
                 Defaults to 240.
             filter_effects (str, optional): Specifies the filter effects to apply to the image.
                 Supported effects: "BLUR", "CONTOUR", "DETAIL", "EDGE_ENHANCE", "EDGE_ENHANCE_MORE",
@@ -51,8 +51,11 @@ class n_PuzzleEnv(gym.Env):
             action_space (gym.spaces.Discrete): The space of possible actions.
             observation_space (gym.spaces.Box): The space of possible observations.
             render_mode (str): The specified render mode.
+            terminated (bool): Flag indicating if the game is over.
+            truncated (bool): Flag indicating if the game is truncated due to the time steps limit.
             window (tkinter.Tk): The main window for rendering (initialized later).
             canvas (tkinter.Canvas): The canvas for drawing the puzzle (initialized later).
+
 
         Note:
             The environment uses a discrete action space with 4 possible actions:

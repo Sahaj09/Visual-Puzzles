@@ -1,10 +1,10 @@
 import gymnasium as gym
-from environments import RushHourEnv
+import visual_puzzle
 
 
 def test_rush_hour_env():
-    board_description = "ooxoKoCCoIKoGAAIKoGoHJDDEEHJoLoFFFoL"
-    env = RushHourEnv(board_description)
+    board_description = None
+    env = gym.make("RushHour-v0", board_description=board_description, obs_type="rgb")
 
     # Test reset
     obs, _ = env.reset()
@@ -18,7 +18,7 @@ def test_rush_hour_env():
     # Test win condition
     while not done:
         # accept input from user
-
+        env.render()
         piece = int(input("Enter piece to move: "))
         direction = int(input("Enter direction to move: "))
 
@@ -28,7 +28,6 @@ def test_rush_hour_env():
         print(f"{action=}")
         print(f"{reward=}")
         print(f"{done=}")
-        env.render()
 
         if done:
             print("Game won!")
