@@ -1,5 +1,5 @@
 import gymnasium as gym
-import environments
+import visual_puzzle
 from PIL import Image
 
 
