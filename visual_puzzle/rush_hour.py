@@ -226,6 +226,8 @@ class RushHourEnv(gym.Env):
         if self.obs_type == "rgb":
             img = self._get_obs()
             plt.imshow(img)
+            plt.xticks([])
+            plt.yticks([])
             plt.show()
         else:
             for row in self.board:
