@@ -27,7 +27,7 @@ class JigsawEnv(gym.Env):
             image_path (str): Path to the image file to be used for the puzzle.
                 The image will be resized to self.image_sizexself.image_size pixels.
             render_mode (str, optional): Specifies how to render the environment.
-                Supported modes: "human" for rendering to a window using tkinter.  ('ascii' only for debugging)
+                Supported modes: "human" for rendering to a window using tkinter.  ascii only for debugging.
                 Defaults to None.
             n_puzzle (int): Number of tiles in the puzzle (e.g., 15 for 15-Puzzle).
                 Defaults to 15.
@@ -114,7 +114,9 @@ class JigsawEnv(gym.Env):
                 self.tiles.append(tile)
 
         # Define action and observation spaces
-        self.action_space = spaces.MultiDiscrete(np.array([[self.size, self.size],[self.size, self.size]]))
+        self.action_space = spaces.MultiDiscrete(
+            np.array([[self.size, self.size], [self.size, self.size]])
+        )
         self.observation_space = spaces.Box(
             low=0, high=255, shape=(self.image_size, self.image_size, 3), dtype=np.uint8
         )
@@ -130,7 +132,9 @@ class JigsawEnv(gym.Env):
         self.window = None
         self.canvas = None
 
-        self.valid_positions = np.array([[i, j] for i in range(self.size) for j in range(self.size)])
+        self.valid_positions = np.array(
+            [[i, j] for i in range(self.size) for j in range(self.size)]
+        )
 
         self.board = np.arange(self.n).reshape((self.size, self.size))
 
@@ -143,7 +147,11 @@ class JigsawEnv(gym.Env):
                 self.final_image.paste(tile, (j * self.tile_size, i * self.tile_size))
                 x = j * self.tile_size
                 y = i * self.tile_size
-                _draw_.rectangle([x, y, x + self.tile_size, y + self.tile_size], outline="black", width=1)
+                _draw_.rectangle(
+                    [x, y, x + self.tile_size, y + self.tile_size],
+                    outline="black",
+                    width=1,
+                )
 
     @staticmethod
     def _check_if_valid_n_puzzle(image_size, n_puzzle):
@@ -166,14 +174,18 @@ class JigsawEnv(gym.Env):
                 obs.paste(tile, (j * self.tile_size, i * self.tile_size))
                 x = j * self.tile_size
                 y = i * self.tile_size
-                draw.rectangle([x, y, x + self.tile_size, y + self.tile_size], outline="black", width=1)
+                draw.rectangle(
+                    [x, y, x + self.tile_size, y + self.tile_size],
+                    outline="black",
+                    width=1,
+                )
         return np.array(obs)
 
     def _get_info(self):
         return {
             "manhattan_distance": self._manhattan_distance(),
             "original_image": self.original_image_before_shuffle_or_filter,
-            "goal_image": self.final_image
+            "goal_image": self.final_image,
         }
 
     def reset(self, *, seed=None, options=None):
@@ -206,7 +218,7 @@ class JigsawEnv(gym.Env):
             return self._get_obs(), 0, self.terminated, self.truncated, self._get_info()
 
         self.current_time_step += 1
-        
+
         pos_1 = np.array(action[0])
         pos_2 = np.array(action[1])
 
@@ -280,7 +292,7 @@ class JigsawEnv(gym.Env):
 
         img = Image.fromarray(self._get_obs())
         self.photo = ImageTk.PhotoImage(img)
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo)
+        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo)  # type: ignore
         self.window.update()
 
     def close(self):

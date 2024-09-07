@@ -8,6 +8,7 @@ from typing import Optional
 
 class RushHourEnv(gym.Env):
     metadata = {"render_modes": ["human"], "render_fps": 1}
+
     def __init__(
         self,
         board_description: Optional[str] = None,
@@ -88,7 +89,10 @@ class RushHourEnv(gym.Env):
 
         # Define observation space
         self.observation_space = spaces.Box(
-            low=0, high=255, shape=(6 * self.cell_size, 6 * self.cell_size, 3), dtype=np.uint8
+            low=0,
+            high=255,
+            shape=(6 * self.cell_size, 6 * self.cell_size, 3),
+            dtype=np.uint8,
         )
 
         # Define colors for pieces
@@ -120,7 +124,7 @@ class RushHourEnv(gym.Env):
                 orientations[piece] = "V"  # Vertical
         return orientations
 
-    def reset(self,*, seed=None, options=None):
+    def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
         self.board = np.array(list(self.board_description)).reshape(6, 6)
         return self._get_obs(), {"num_steps_to_finish": self.num_steps_to_finish}
