@@ -13,7 +13,7 @@ class RushHourEnv(gym.Env):
         self,
         board_description: Optional[str] = None,
         obs_type: str = "rgb",
-        rush_txt_path: str = "experiment_data/rush.txt",
+        rush_txt_path: str = "assets/rush.txt",
     ):
         """
         Initialize the Rush Hour environment.
