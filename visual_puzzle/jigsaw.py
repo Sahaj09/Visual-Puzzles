@@ -296,7 +296,8 @@ class JigsawEnv(gym.Env):
         self.window.update()
 
     def close(self):
-        if self.window is not None:
-            self.window.destroy()
-            self.window = None
-            self.canvas = None
+        pass
+        # if self.window is not None:
+        #     self.window.destroy()
+        #     self.window = None
+        #     self.canvas = None

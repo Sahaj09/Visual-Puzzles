@@ -158,10 +158,7 @@ class n_PuzzleEnv(gym.Env):
                     outline="black",
                     width=1,
                 )
-        from matplotlib import pyplot as plt
-
-        plt.imshow(self.final_image)
-        plt.show()
+        
 
     @staticmethod
     def _check_if_valid_n_puzzle(image_size, n_puzzle):
@@ -307,7 +304,8 @@ class n_PuzzleEnv(gym.Env):
         self.window.update()
 
     def close(self):
-        if self.window is not None:
-            self.window.destroy()
-            self.window = None
-            self.canvas = None
+        pass
+        # if self.window is not None:
+        #     self.window.destroy()
+        #     self.window = None
+        #     self.canvas = None

@@ -46,7 +46,7 @@ def play_game(image_path):
             print("Game over!")
             break
 
-    env.close()
+    
 
 
 if __name__ == "__main__":
