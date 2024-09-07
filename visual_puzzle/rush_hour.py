@@ -82,7 +82,7 @@ class RushHourEnv(gym.Env):
         self.piece_orientations = self._get_piece_orientations()
         self.obs_type = obs_type
         self.cell_size = 50
-        print(self.pieces)
+        # print(self.pieces)
 
         # piece description, direction: 0 - up, 1 - right, 2 - down, 3 - left
         self.action_space = spaces.MultiDiscrete(np.array([len(self.pieces), 4]))
@@ -111,7 +111,7 @@ class RushHourEnv(gym.Env):
         with open("experiment_data/rush.txt", "r") as f:
             lines = f.readlines()
             random_board = lines[np.random.randint(0, len(lines))].split(" ")
-            print(random_board)
+            # print(random_board)
             return int(random_board[0]), random_board[1]
 
     def _get_piece_orientations(self):
@@ -200,11 +200,11 @@ class RushHourEnv(gym.Env):
             elif direction == 2 or direction == 3:  # left or right
                 new_pos = positions
 
-        print("pre-valid - ", self.board)
+        # print("pre-valid - ", self.board)
         if self._is_valid_move(positions, new_pos):
             self.board[tuple(positions.T)] = "o"
             self.board[tuple(new_pos.T)] = piece
-            print("valid move -", self.board)
+            # print("valid move -", self.board)
             return True
         return False
 
