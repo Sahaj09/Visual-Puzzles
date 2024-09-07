@@ -8,7 +8,7 @@ def test_rush_hour_env():
 
     # Test reset
     obs, _ = env.reset()
-
+    print(obs.shape)
     print("Reset test passed.")
 
     # Test step

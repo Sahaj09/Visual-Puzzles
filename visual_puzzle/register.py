@@ -11,3 +11,8 @@ def register_environments():
         id="RushHour-v0",
         entry_point="visual_puzzle.rush_hour:RushHourEnv",
     )
+
+    register(
+        id="jigsaw-v0",
+        entry_point="visual_puzzle.jigsaw:JigsawEnv",
+    )

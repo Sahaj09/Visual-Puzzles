@@ -3,14 +3,6 @@ import visual_puzzle
 from PIL import Image
 
 
-def get_user_action():
-    while True:
-        action = input(
-            "Enter action (w: up, d: right, s: down, a: left, q: quit): "
-        ).lower()
-        if action in ["w", "d", "s", "a", "q"]:
-            return action
-        print("Invalid input. Please try again.")
 
 
 def action_to_index(action):
@@ -18,11 +10,11 @@ def action_to_index(action):
 
 
 def play_game(image_path):
-    env = gym.make("n_Puzzle-v0", image_path=image_path, render_mode="human")
-    # env = n_PuzzleEnv(image_path=image_path, render_mode="human")
+    env = gym.make("jigsaw-v0", image_path=image_path, render_mode="human")
+    
     observation, info = env.reset()
 
-    print("Welcome to the n-Puzzle game!")
+    print("Welcome to the JigSaw game!")
     print("Try to arrange the image pieces in the correct order.")
 
     total_reward = 0
@@ -32,12 +24,16 @@ def play_game(image_path):
         print(f"Steps: {steps}, Total Reward: {total_reward}")
         print(f"Manhattan distance: {info['manhattan_distance']}")
 
-        action = get_user_action()
+        pos_1_x = input("position_1, index_x :")
+        pos_1_y = input("position_1, index_y :")
+        pos_2_x = input("position_2, index_x :")
+        pos_2_y = input("position_2, index_y :")
+        action = [[int(pos_1_x), int(pos_1_y)], [int(pos_2_x), int(pos_2_y)]]
         if action == "q":
             print("Quitting the game.")
             break
         observation, reward, terminated, truncated, info = env.step(
-            action_to_index(action)
+            action
         )
         print(f"terminated: {terminated=}")
         print(f"truncated: {truncated=}")

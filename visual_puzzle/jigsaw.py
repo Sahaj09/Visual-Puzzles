@@ -7,7 +7,7 @@ from typing import Optional
 
 
 class JigsawEnv(gym.Env):
-    metadata = {"render_modes": ["ascii", "human"]}
+    metadata = {"render_modes": ["human"], "render_fps": 1}
 
     def __init__(
         self,
@@ -27,7 +27,7 @@ class JigsawEnv(gym.Env):
             image_path (str): Path to the image file to be used for the puzzle.
                 The image will be resized to self.image_sizexself.image_size pixels.
             render_mode (str, optional): Specifies how to render the environment.
-                Supported modes: "human" for rendering to a window using tkinter. "ascii" for text-based rendering.
+                Supported modes: "human" for rendering to a window using tkinter. 
                 Defaults to None.
             n_puzzle (int): Number of tiles in the puzzle (e.g., 15 for 15-Puzzle).
                 Defaults to 15.
@@ -132,6 +132,19 @@ class JigsawEnv(gym.Env):
 
         self.valid_positions = np.array([[i, j] for i in range(self.size) for j in range(self.size)])
 
+        self.board = np.arange(self.n).reshape((self.size, self.size))
+
+        self.final_image = Image.new("RGB", (self.image_size, self.image_size))
+        _draw_ = ImageDraw.Draw(self.final_image)
+        for i in range(self.size):
+            for j in range(self.size):
+                tile_index = self.board[i, j]
+                tile = self.tiles[tile_index]
+                self.final_image.paste(tile, (j * self.tile_size, i * self.tile_size))
+                x = j * self.tile_size
+                y = i * self.tile_size
+                _draw_.rectangle([x, y, x + self.tile_size, y + self.tile_size], outline="black", width=1)
+
     @staticmethod
     def _check_if_valid_n_puzzle(image_size, n_puzzle):
         if (
@@ -160,16 +173,17 @@ class JigsawEnv(gym.Env):
         return {
             "manhattan_distance": self._manhattan_distance(),
             "original_image": self.original_image_before_shuffle_or_filter,
+            "goal_image": self.final_image
         }
 
-    def reset(self, seed=None):
+    def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
         self.current_time_step = 0
         # Initialize the board in solved state
         self.board = np.arange(self.n).reshape((self.size, self.size))
 
         # Shuffle the board
-        self.np_random.shuffle(self.board.flat)
+        self.np_random.shuffle(self.board.ravel())
 
         # Find the position of the empty tile (0)
         self.empty_pos = np.argwhere(self.board == 0)[0]
@@ -218,9 +232,17 @@ class JigsawEnv(gym.Env):
         return observation, reward, self.terminated, self.truncated, info
 
     def _is_solved(self):
-        return np.array_equal(
-            self.board, np.arange(self.n).reshape((self.size, self.size))
-        )
+        print(f"{np.all(self._get_obs() == np.array(self.final_image))=}")
+        # print(self._get_obs())
+        # print(np.array(self.final_image))
+        # print(self._get_obs()[self._get_obs()!=np.array(self.final_image)])
+        # print(np.array(self.final_image)[self._get_obs()!=np.array(self.final_image)])
+        # from matplotlib import pyplot as plt
+        # plt.imshow(self._get_obs())
+        # plt.show()
+        # plt.imshow(np.array(self.final_image))
+        # plt.show()
+        return np.all(self._get_obs() == np.array(self.final_image))
 
     def _manhattan_distance(self):
         distance = 0
