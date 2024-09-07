@@ -9,6 +9,11 @@ This repository provides some simple tasks based on sliding puzzles like
 
 These tasks are set up as gymnasium environments as it allows for versatile evaluation (and can also be used to evaluate models other than VLMs).
 
+Installation -
+
+```bash
+pip install "visual_puzzle @ git+https://github.com/Sahaj09/Visual-Puzzles.git@main"
+```
 
 
 ### Third-Party Content
