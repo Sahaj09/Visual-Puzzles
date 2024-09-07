@@ -21,7 +21,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
     requirements = fh.read().splitlines()
 
 setup(
-    name="Visual-Puzzles",
+    name="Visual-Puzzle",
     version="0.1.0",
     author="Sahaj Singh Maini",
     author_email="sahmaini@iu.edu",
