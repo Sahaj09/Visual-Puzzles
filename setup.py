@@ -23,7 +23,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 setup(
     name="Visual-Puzzles",
     version="0.1.0",
-    author="Sahaj Singh Maini"
+    author="Sahaj Singh Maini",
     author_email="sahmaini@iu.edu",
     description="A environment for visual puzzles to evaluate VLMs and other models.",
     long_description=long_description,
