@@ -27,7 +27,7 @@ class n_PuzzleEnv(gym.Env):
             image_path (str): Path to the image file to be used for the puzzle.
                 The image will be resized to self.image_sizexself.image_size pixels.
             render_mode (str, optional): Specifies how to render the environment.
-                Supported modes: "human" for rendering to a window using tkinter. 
+                Supported modes: "human" for rendering to a window using tkinter. ('ascii' only for debugging.)
                 Defaults to None.
             n_puzzle (int): Number of tiles in the puzzle (e.g., 15 for 15-Puzzle).
                 Defaults to 15.
