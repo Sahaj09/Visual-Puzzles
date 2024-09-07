@@ -4,14 +4,14 @@ from gymnasium import spaces
 from PIL import Image, ImageTk, ImageFilter, ImageDraw
 import tkinter as tk
 from typing import Optional
-
-
+from . import get_asset_path
+import os
 class n_PuzzleEnv(gym.Env):
     metadata = {"render_modes": ["human"], "render_fps": 1}
 
     def __init__(
         self,
-        image_path: str,
+        image_path: Optional[str] = None,
         render_mode: Optional[str] = None,
         n_puzzle: int = 15,
         image_size: int = 240,
@@ -64,6 +64,9 @@ class n_PuzzleEnv(gym.Env):
         """
 
         super(n_PuzzleEnv, self).__init__()
+
+        if image_path is None:
+            image_path = get_asset_path('example.png')
 
         self.size = np.sqrt(n_puzzle + 1).astype(int)
         self.n = self.size**2

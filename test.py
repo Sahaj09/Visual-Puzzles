@@ -19,8 +19,8 @@ def get_user_action():
         print("Invalid input. Please try again.")
 
 
-def play_game_jigsaw(image_path):
-    env = gym.make("jigsaw-v0", image_path=image_path, render_mode="human")
+def play_game_jigsaw():
+    env = gym.make("jigsaw-v0", render_mode="human")
     
     observation, info = env.reset()
 
@@ -59,10 +59,10 @@ def play_game_jigsaw(image_path):
     
 
 
-def play_game_n_puzzle(image_path):
-    env = gym.make("n_Puzzle-v0", image_path=image_path, render_mode="human")
+def play_game_n_puzzle():
+    env = gym.make("n_Puzzle-v0", render_mode="human")
     # env = n_PuzzleEnv(image_path=image_path, render_mode="human")
-    observation, info = env.reset()
+    observation, info = env.reset(seed=0)
 
     print("Welcome to the n-Puzzle game!")
     print("Try to arrange the image pieces in the correct order.")
@@ -125,7 +125,7 @@ def test_rush_hour_env():
             break
 
 if __name__ == "__main__":
-    image_path = "experiment_data/check.png"
-    play_game_jigsaw(image_path)
-    play_game_n_puzzle(image_path)
-    test_rush_hour_env()
+    
+    play_game_jigsaw()
+    # play_game_n_puzzle()
+    # test_rush_hour_env()
