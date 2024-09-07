@@ -40,24 +40,22 @@ for _ in range(1000):
 
 The observation is an RGB image. The actions - up, down, left, and right (which moves the blank tile in that direction). The goal of the puzzle is to manipulate the tiles in order to get the goal format.
 
-**Goal** -
-![image_1](./images/n_puzzle_final.png "check")
-
-**Start State**- 
-![image_2](./images/n_puzzle_shuffle.png)
 
 
+| Start State | Goal State|
+   |-----------------------|-------------|
+   | ![image_2](./images/n_puzzle_shuffle.png) | ![image_1](./images/n_puzzle_final.png "check") |
 
 ## Jigsaw
 The observation is an RGB image. The actions - [[a, b], [c, d]] where $a,b,c,d \in [0,N)$ in a $N\times N$ puzzle. [a, b] is the position of the first tile, [c, d] is the position of the second tile, and choosing these tiles leads to a swap between them. 
 
 The goal of the puzzle is to manipulate the tiles in order to get the goal format.
 
-**Goal** -
-![image_3](./images/jigsaw_final_image.png)
 
-**Start State** - 
-![image_4](./images/jigsaw_shuffled_image.png)
+| Start State | Goal State|
+   |-----------------------|-------------|
+   | ![image_4](./images/jigsaw_shuffled_image.png) | ![image_3](./images/jigsaw_final_image.png) |
+
 
 ## Variations of N-Puzzle
 
