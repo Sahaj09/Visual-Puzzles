@@ -5,6 +5,9 @@ from PIL import Image, ImageDraw
 from matplotlib import pyplot as plt
 from typing import Optional
 
+from . import get_asset_path
+import os
+
 
 class RushHourEnv(gym.Env):
     metadata = {"render_modes": ["human"], "render_fps": 1}
@@ -13,7 +16,7 @@ class RushHourEnv(gym.Env):
         self,
         board_description: Optional[str] = None,
         obs_type: str = "rgb",
-        rush_txt_path: str = "assets/rush.txt",
+        rush_txt_path: Optional[str] = None,
     ):
         """
         Initialize the Rush Hour environment.
@@ -72,9 +75,13 @@ class RushHourEnv(gym.Env):
             self.board_description = board_description
             self.num_steps_to_finish = None
         else:
-            self.num_steps_to_finish, self.board_description = self.load_board_randomly(
+            if rush_txt_path is not None:
+                
+                self.num_steps_to_finish, self.board_description = self.load_board_randomly(
                 rush_txt_path
             )
+            else:
+                self.num_steps_to_finish, self.board_description = self.load_board_randomly(get_asset_path("rush.txt"))
 
         self.board = np.array(list(self.board_description)).reshape(6, 6)
         self.pieces = set(self.board.flatten()) - set("ox")
@@ -108,7 +115,7 @@ class RushHourEnv(gym.Env):
 
     # Load a board from rush.txt file were each sentence is shortest_path, board, id
     def load_board_randomly(self, file_path: str):
-        with open("experiment_data/rush.txt", "r") as f:
+        with open(file_path, "r") as f:
             lines = f.readlines()
             random_board = lines[np.random.randint(0, len(lines))].split(" ")
             # print(random_board)

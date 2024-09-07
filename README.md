@@ -61,6 +61,7 @@ The goal of the puzzle is to manipulate the tiles in order to get the goal forma
 
 
 ## Rush-Hour
+The rush-hour game is sliding puzzle where the goal is to have the red tile (in our case, also indexed as 0) reach the right end of the board. More about this game can be read [here](https://en.wikipedia.org/wiki/Rush_Hour_(puzzle)) and in this amazing [blog](https://www.michaelfogleman.com/rush/).
 
 ### Third-Party Content
 This project uses rush.txt file from [rush](https://github.com/fogleman/rush) 
