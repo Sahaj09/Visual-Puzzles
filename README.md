@@ -57,8 +57,14 @@ The goal of the puzzle is to manipulate the tiles in order to get the goal forma
    | ![image_4](./images/jigsaw_shuffled_image.png) | ![image_3](./images/jigsaw_final_image.png) |
 
 
-## Variations of N-Puzzle
+## Variations of N-Puzzle and Jigsaw
+Various transformations can be applied to the images in both the N-puzzle and Jigsaw tasks to make the task perceptually challenging for the agents. (Currently supports "BLUR", "CONTOUR", "EDGE_ENHANCE", "DETAIL, "EDGE_ENHANCE_MORE", "EMBOSS", "FIND_EDGES", "SHARPEN", "SMOOTH", "SMOOTH_MORE" from PIL library)
 
+|Blur Image| Contour Image|
+|-----------|-----------|
+|![image_5](./images/n_puzzle_shuffle_blur.png)| ![image_6](./images/n_puzzle_shuffle_contour.png)|
+
+The number of pieces in the puzzle can be changed
 
 ## Rush-Hour
 The rush-hour game is sliding puzzle where the goal is to have the red tile (in our case, also indexed as 0) reach the right end of the board. More about this game can be read [here](https://en.wikipedia.org/wiki/Rush_Hour_(puzzle)) and in this amazing [blog](https://www.michaelfogleman.com/rush/).
@@ -72,3 +78,12 @@ The observation is an RGB image. The actions - [a, b] where a is the index of th
 ### Third-Party Content
 This project uses rush.txt file from [rush](https://github.com/fogleman/rush) 
 under the MIT-License.
+
+```bibtex
+@misc{Maini2024,
+  author = {Maini, Sahaj Singh},
+  title = {{Visual-Puzzles: Simple Puzzle(ing) Benchmark For Visual Reasoning in Vision Language Models}},
+  year = {2024},
+  url = {https://github.com/Sahaj09/Visual-Puzzles}
+}
+```
