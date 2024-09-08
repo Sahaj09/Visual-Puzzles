@@ -1,6 +1,6 @@
 # Simple Puzzle(ing) Benchmark For Visual Reasoning in Vision Language Models
 
-This repository provides some simple tasks based on sliding puzzles like 
+This repository provides some simple tasks based on board puzzles like 
 - N-Puzzle
 - N-Puzzle with modified image (blurring, contours, etc.) 
 - N-Tile Jigsaw
