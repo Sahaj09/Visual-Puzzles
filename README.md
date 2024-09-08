@@ -87,6 +87,7 @@ This project uses rush.txt file from [rush](https://github.com/fogleman/rush)
 under the MIT-License.
 
 
+### Cite
 If you use this project or find it inspirational for your work, please cite it as follows:
 ```bibtex
 @misc{Maini2024,
