@@ -8,20 +8,21 @@ This repository provides some simple tasks based on sliding puzzles like
 - Rush-Hour (uses boards by [rush](https://github.com/fogleman/rush))
 
 These tasks are set up as gymnasium environments as it allows for versatile evaluation (and can also be used to evaluate models other than VLMs).
-
+<!-- 
 <details>
   <summary><i>Proj. Phil.</i></summary>
-  <b>Thoughts put in words through a smart model - </b>
-  
-  <b>In science's march, new methods rise,
+  <p>Thoughts put in words through a smart model - </p>
+
+  <p>In science's march, new methods rise,
 Embracing old solutions as they grow.
 But AI's path takes a strange guise,
 Where novel tools don't always know,
 The simple tricks their elders mastered,
 Leaving gaps where once was whole.
 A curious dance of progress plastered,
-With steps both forward and retrograde roll.</b>
+With steps both forward and retrograde roll.</p>
 </details>
+-->
 
 ## Installation -
 
