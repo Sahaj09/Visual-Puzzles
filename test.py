@@ -93,7 +93,7 @@ def play_game_n_puzzle():
 
 def test_rush_hour_env():
     board_description = None
-    env = gym.make("RushHour-v0", board_description=board_description, obs_type="rgb")
+    env = gym.make("RushHour-v0", render_mode= "human", board_description=board_description)
 
     # Test reset
     obs, _ = env.reset()
@@ -101,13 +101,11 @@ def test_rush_hour_env():
     print("Reset test passed.")
 
     # Test step
-
     done = False
 
     # Test win condition
     while not done:
         # accept input from user
-        env.render()
         piece = int(input("Enter piece to move: "))
         direction = int(input("Enter direction to move: "))
 
