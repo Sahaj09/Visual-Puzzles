@@ -7,6 +7,7 @@ from typing import Optional
 import os
 from . import get_asset_path
 
+
 class JigsawEnv(gym.Env):
     metadata = {"render_modes": ["human"], "render_fps": 1}
 
@@ -67,7 +68,7 @@ class JigsawEnv(gym.Env):
         super(JigsawEnv, self).__init__()
 
         if image_path is None:
-            image_path = get_asset_path('example.png')
+            image_path = get_asset_path("example.png")
 
         self.size = np.sqrt(n_puzzle + 1).astype(int)
         self.n = self.size**2

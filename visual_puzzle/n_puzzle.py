@@ -6,6 +6,8 @@ import tkinter as tk
 from typing import Optional
 from . import get_asset_path
 import os
+
+
 class n_PuzzleEnv(gym.Env):
     metadata = {"render_modes": ["human"], "render_fps": 1}
 
@@ -66,7 +68,7 @@ class n_PuzzleEnv(gym.Env):
         super(n_PuzzleEnv, self).__init__()
 
         if image_path is None:
-            image_path = get_asset_path('example.png')
+            image_path = get_asset_path("example.png")
 
         self.size = np.sqrt(n_puzzle + 1).astype(int)
         self.n = self.size**2
@@ -161,7 +163,6 @@ class n_PuzzleEnv(gym.Env):
                     outline="black",
                     width=1,
                 )
-        
 
     @staticmethod
     def _check_if_valid_n_puzzle(image_size, n_puzzle):

@@ -3,8 +3,6 @@ import visual_puzzle
 from PIL import Image
 
 
-
-
 def action_to_index(action):
     return {"w": 0, "d": 1, "s": 2, "a": 3}[action]
 
@@ -21,7 +19,7 @@ def get_user_action():
 
 def play_game_jigsaw():
     env = gym.make("jigsaw-v0", render_mode="human")
-    
+
     observation, info = env.reset()
 
     print("Welcome to the JigSaw game!")
@@ -42,9 +40,7 @@ def play_game_jigsaw():
         if action == "q":
             print("Quitting the game.")
             break
-        observation, reward, terminated, truncated, info = env.step(
-            action
-        )
+        observation, reward, terminated, truncated, info = env.step(action)
         print(f"terminated: {terminated=}")
         print(f"truncated: {truncated=}")
 
@@ -55,8 +51,6 @@ def play_game_jigsaw():
             env.render()
             print("Game over!")
             break
-
-    
 
 
 def play_game_n_puzzle():
@@ -91,9 +85,12 @@ def play_game_n_puzzle():
             print("Game over!")
             break
 
+
 def test_rush_hour_env():
     board_description = None
-    env = gym.make("RushHour-v0", render_mode= "human", board_description=board_description)
+    env = gym.make(
+        "RushHour-v0", render_mode="human", board_description=board_description
+    )
 
     # Test reset
     obs, _ = env.reset()
@@ -121,8 +118,9 @@ def test_rush_hour_env():
             env.render()
             break
 
+
 if __name__ == "__main__":
-    
+
     # play_game_jigsaw()
     play_game_n_puzzle()
     # test_rush_hour_env()

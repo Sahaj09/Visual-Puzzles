@@ -15,8 +15,9 @@ class RushHourEnv(gym.Env):
     def __init__(
         self,
         board_description: Optional[str] = None,
-        obs_type: str = "rgb",
+        obs_type: Optional[str] = None,
         rush_txt_path: Optional[str] = None,
+        render_mode: Optional[str] = None,
     ):
         """
         Initialize the Rush Hour environment.
@@ -33,12 +34,18 @@ class RushHourEnv(gym.Env):
             Eg.- ooIBBBGoIJCCGAAJKLoHDDKLxHFFKMoooooM
             If None, a random board will be loaded from rush.txt (which should be located at rush_txt_path) file.
 
-        obs_type : str
-            The type of observation to return. Must be either 'rgb' or 'text'.
+        obs_type : str, Optional
+            The type of observation to return. Must be either 'rgb'. 'text' only for debugging.
             Default is 'rgb'.
 
-        rush_txt_path : str
+        rush_txt_path : str, Optional
             The path to the rush.txt file containing the board descriptions.
+            If None, the default rush.txt file will be used.
+
+        render_mode : str, Optional
+            The rendering mode. If 'human', the environment will be rendered using matplotlib.
+            If None, no rendering will be done.
+            Default is None.
 
         Attributes:
         -----------
@@ -70,18 +77,23 @@ class RushHourEnv(gym.Env):
         """
         super(RushHourEnv, self).__init__()
 
+        if obs_type is None:
+            obs_type = "rgb"
+
         assert obs_type in ["rgb", "text"], "Observation type must be 'rgb' or 'text'"
         if board_description is not None:
             self.board_description = board_description
             self.num_steps_to_finish = None
         else:
             if rush_txt_path is not None:
-                
-                self.num_steps_to_finish, self.board_description = self.load_board_randomly(
-                rush_txt_path
-            )
+
+                self.num_steps_to_finish, self.board_description = (
+                    self.load_board_randomly(rush_txt_path)
+                )
             else:
-                self.num_steps_to_finish, self.board_description = self.load_board_randomly(get_asset_path("rush.txt"))
+                self.num_steps_to_finish, self.board_description = (
+                    self.load_board_randomly(get_asset_path("rush.txt"))
+                )
 
         self.board = np.array(list(self.board_description)).reshape(6, 6)
         self.pieces = set(self.board.flatten()) - set("ox")
@@ -89,6 +101,7 @@ class RushHourEnv(gym.Env):
         self.piece_orientations = self._get_piece_orientations()
         self.obs_type = obs_type
         self.cell_size = 50
+        self.render_mode = render_mode
         # print(self.pieces)
 
         # piece description, direction: 0 - up, 1 - right, 2 - down, 3 - left
@@ -134,6 +147,8 @@ class RushHourEnv(gym.Env):
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
         self.board = np.array(list(self.board_description)).reshape(6, 6)
+        if self.render_mode == "human":
+            self.render()
         return self._get_obs(), {"num_steps_to_finish": self.num_steps_to_finish}
 
     def step(self, action):
@@ -142,6 +157,8 @@ class RushHourEnv(gym.Env):
         moved = self._move_piece(piece, direction)
         done = self._check_win()
         reward = 0 if done else -1
+        if self.render_mode == "human":
+            self.render()
         return (
             self._get_obs(),
             reward,
