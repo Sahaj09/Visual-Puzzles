@@ -61,7 +61,6 @@ def play_game_jigsaw():
 
 def play_game_n_puzzle():
     env = gym.make("n_Puzzle-v0", render_mode="human")
-    # env = n_PuzzleEnv(image_path=image_path, render_mode="human")
     observation, info = env.reset(seed=0)
 
     print("Welcome to the n-Puzzle game!")
@@ -126,6 +125,6 @@ def test_rush_hour_env():
 
 if __name__ == "__main__":
     
-    play_game_jigsaw()
-    # play_game_n_puzzle()
+    # play_game_jigsaw()
+    play_game_n_puzzle()
     # test_rush_hour_env()
