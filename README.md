@@ -64,7 +64,14 @@ Various transformations can be applied to the images in both the N-puzzle and Ji
 |-----------|-----------|
 |![image_5](./images/n_puzzle_shuffle_blur.png)| ![image_6](./images/n_puzzle_shuffle_contour.png)|
 
-The number of pieces in the puzzle can be changed
+In addition, the number of pieces in the puzzle can also be changed to increase or decrease difficulty of the task.
+
+| Puzzle size | Puzzle |
+|-------------|-------|
+| 4-tiles     | ![image_8](./images/n_puzzle_4.png) |
+| 36-tiles    | ![image_9](./images/n_puzzle_35.png) |
+| 64-tiles    | ![image_10](./images/n_puzzle_63.png) |
+| 144-tiles   | ![image_11](./images/n_puzzle_144.png) |
 
 ## Rush-Hour
 The rush-hour game is sliding puzzle where the goal is to have the red tile (in our case, also indexed as 0) reach the right end of the board. More about this game can be read [here](https://en.wikipedia.org/wiki/Rush_Hour_(puzzle)) and in this amazing [blog](https://www.michaelfogleman.com/rush/).
@@ -73,11 +80,13 @@ The observation is an RGB image. The actions - [a, b] where a is the index of th
 
 |Example State|
 |-----------|
-|![image_5](./images/rush_hour_example.png)
+|![image_7](./images/rush_hour_example.png)
 
 ### Third-Party Content
 This project uses rush.txt file from [rush](https://github.com/fogleman/rush) 
 under the MIT-License.
+
+
 
 ```bibtex
 @misc{Maini2024,
