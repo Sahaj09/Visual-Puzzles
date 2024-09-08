@@ -11,8 +11,6 @@ These tasks are set up as gymnasium environments as it allows for versatile eval
 <!-- 
 <details>
   <summary><i>Proj. Phil.</i></summary>
-  <p>Thoughts put in words through a smart model - </p>
-
   <p>In science's march, new methods rise,
 Embracing old solutions as they grow.
 But AI's path takes a strange guise,
